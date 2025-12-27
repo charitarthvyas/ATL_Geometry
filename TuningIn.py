@@ -88,13 +88,69 @@ elif step == "3. Cross-Section Detective":
     st.subheader("Case 1: The Square Pyramid")
     st.write("Imagine slicing a Square Pyramid horizontally (parallel to the base).")
     
-    cs_guess = st.selectbox("What shape do you see?", ["Triangle", "Circle", "Square", "Trapezoid"])
+    col1, col2 = st.columns(2)
     
-    if st.button("Reveal Evidence"):
-        if cs_guess == "Square":
-            st.success("Correct! It is a smaller square.")
-        else:
-            st.warning("Incorrect. Think about the base shape!")
+    with col1:
+        # Static Pyramid SVG
+        st.markdown("""
+        <svg width="200" height="200">
+            <polygon points="100,20 40,180 160,180" fill="none" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="100" y1="20" x2="100" y2="180" stroke="#e74c3c" stroke-dasharray="4"/>
+            <line x1="40" y1="180" x2="160" y2="180" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="40" y1="180" x2="80" y2="140" stroke="#ccc" stroke-dasharray="4"/>
+            <line x1="160" y1="180" x2="120" y2="140" stroke="#ccc" stroke-dasharray="4"/>
+            <line x1="100" y1="20" x2="80" y2="140" stroke="#ccc" stroke-dasharray="4"/>
+            <line x1="20" y1="100" x2="180" y2="100" stroke="#e67e22" stroke-width="3" stroke-dasharray="5,5"/>
+            <text x="185" y="105" fill="#e67e22" font-size="12">Cut Line</text>
+        </svg>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        cs_guess = st.selectbox("What shape do you see?", ["Triangle", "Circle", "Square", "Trapezoid"])
+        
+        if st.button("Reveal Evidence"):
+            if cs_guess == "Square":
+                st.success("Correct! It is a smaller square.")
+                # Show Square SVG
+                st.markdown("""
+                <div style="text-align:center;">
+                    <svg width="100" height="100">
+                        <rect x="25" y="25" width="50" height="50" fill="#2ecc71" stroke="black" stroke-width="2"/>
+                        <text x="50" y="90" text-anchor="middle" font-size="12">Cross Section</text>
+                    </svg>
+                </div>
+                """, unsafe_allow_html=True)
+            elif cs_guess == "Triangle":
+                st.warning("Incorrect. A triangle would be a vertical slice through the apex.")
+                # Show Triangle SVG
+                st.markdown("""
+                <div style="text-align:center;">
+                    <svg width="100" height="100">
+                        <polygon points="50,10 10,90 90,90" fill="#e74c3c" stroke="black" stroke-width="2"/>
+                        <text x="50" y="98" text-anchor="middle" font-size="10">(Vertical Slice)</text>
+                    </svg>
+                </div>
+                """, unsafe_allow_html=True)
+            elif cs_guess == "Circle":
+                st.warning("Incorrect. A circle comes from slicing a Cone or Sphere.")
+                # Show Circle SVG
+                st.markdown("""
+                <div style="text-align:center;">
+                    <svg width="100" height="100">
+                        <circle cx="50" cy="50" r="30" fill="#e74c3c" stroke="black" stroke-width="2"/>
+                    </svg>
+                </div>
+                """, unsafe_allow_html=True)
+            elif cs_guess == "Trapezoid":
+                st.warning("Incorrect. A trapezoid comes from slicing a Pyramid at an angle, or a Prism.")
+                # Show Trapezoid SVG
+                st.markdown("""
+                <div style="text-align:center;">
+                    <svg width="100" height="100">
+                        <polygon points="30,30 70,30 90,80 10,80" fill="#e74c3c" stroke="black" stroke-width="2"/>
+                    </svg>
+                </div>
+                """, unsafe_allow_html=True)
 
 # --- STAGE 4: PATTERNS ---
 elif step == "4. Pattern Recognition":
