@@ -1,4 +1,4 @@
-rt streamlit as st
+import streamlit as st
 import math
 
 # Page Configuration
